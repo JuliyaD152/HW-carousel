@@ -1,34 +1,34 @@
-let divMain = document.createElement('div');
-divMain.className = "carousel";
-document.body.append(divMain);
+/* eslint-disable no-unused-vars */
+/* eslint-disable func-style */
+/* eslint-disable require-jsdoc */
+
+
 let pointer = null;
 
-function createCarousel(n) {
-	slideCreate(n);
-	createIndicators(n);
-	createControls();
-	createStyle();
-	addClick();
-}
-
-createCarousel(4);
+function createMainDiv() {
+    divMain = document.createElement('div');
+	divMain.className = "$carousel";
+	divMain.setAttribute("id", "carousel")
+	document.body.append(divMain);
+	divCarousel = document.querySelector("#carousel");
+ }
 
 function slideCreate(n) {
-	let slidesList = document.createElement('ul');
-	slidesList.className = "slides";
-	document.querySelector(".carousel").append(slidesList);
+	slidesList = document.createElement('ul');
+	slidesList.setAttribute('class', 'slides');
+	divCarousel.append(slidesList);
 
 	for (let i = 0; i < n; i++) {
 		let slidesLi = document.createElement('li');
-		document.querySelector("ul").append(slidesLi);
+		let aLi = document.createElement('a');
 
 		if (i === 0) {
-			slidesLi.className = "slides__item active";
+			slidesLi.setAttribute("class", "slides__item active");
 		} else {
-			slidesLi.className = "slides__item";
+			slidesLi.setAttribute('class', "slides__item") ;
 		}
 
-		let aLi = document.createElement('a');
+		slidesList.append(slidesLi);
 		aLi.setAttribute('href', '#');
 		slidesLi.append(aLi);
 	}
@@ -37,7 +37,7 @@ function slideCreate(n) {
 function createIndicators(n) {
 	let indicatorDiv = document.createElement("div");
 	indicatorDiv.className = 'indicators';
-	document.querySelector(".carousel").append(indicatorDiv);
+	divCarousel.append(indicatorDiv);
 
 	for (let i = 0; i < n; i++) {
 		let indicatorSpan = document.createElement('span');
@@ -56,13 +56,12 @@ function createIndicators(n) {
 function createControls() {
 	let controlDiv = document.createElement('div');
 	controlDiv.className = "controls";
-	document.querySelector(".carousel").append(controlDiv);
+	divCarousel.append(controlDiv);
 
 	for (let i = 0; i < 3; i++) {
 		let allControlDiv = document.createElement('div');
 		let innerTag = document.createElement('i');
-		/*	allControlDiv.className = 'controls__item';
-			innerTag.className = 'fas';*/
+		
 		controlDiv.append(allControlDiv);
 		allControlDiv.append(innerTag);
 
@@ -86,7 +85,7 @@ function createControls() {
 
 function createStyle() {
 	let mainStyle = document.createElement('style');
-	document.querySelector('.carousel').append(mainStyle);
+	divCarousel.append(mainStyle);
 
 	let createInnerStyle = `
 		.slides {
@@ -116,8 +115,6 @@ function createStyle() {
 	mainStyle.innerHTML = createInnerStyle;
 }
 
-
-
 function handler(event) {
 	const target = event.target;
 	
@@ -135,3 +132,12 @@ function addClick() {
 	parent.addEventListener("click", handler);
 }
 
+function createCarousel(slidesCount = 5 ) {
+	createMainDiv()
+	slideCreate(slidesCount);
+	createIndicators(slidesCount);
+	createControls();
+	createStyle();
+	addClick();
+}
+createCarousel(4);
